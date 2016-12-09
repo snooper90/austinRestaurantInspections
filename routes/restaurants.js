@@ -1,13 +1,15 @@
-var express = require('express');
-var router = express.Router();
-
-// pull in model for restaurant
-// Restaurant = require('../models/restauraunt');
+const express = require('express');
+const router = express.Router();
+const Restaurant = require('../models/restaurant');
 
 
 /* GET all of the restaurants */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  Restaurant.find({},
+    function(err, restaurants){
+      res.send(restaurants);
+    }
+  );
 });
 
 /* GET individual restaurants */

@@ -6,7 +6,6 @@ const RestaurantSchema = new Schema({
   name: String,
   location: String,
   raiting: Array
-  created:
 },
 {
   timestamps: true

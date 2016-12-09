@@ -5,8 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
+//config mongoose
+var mongoose = require('mongoose');
+mongoose.connect(process.env.DB_CONN_FOOD_SAFTY);
+
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var restaurants = require('./routes/restaurants');
 
 var app = express();
@@ -24,7 +28,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/restaurants', restaurants);
 
 // catch 404 and forward to error handler
