@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const RestaurantSchema = new Schema({
   name: String,
   location: String,
-  raiting: Array
+  raitings: Array
 },
 {
   timestamps: true
