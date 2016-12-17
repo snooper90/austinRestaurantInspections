@@ -4,6 +4,12 @@ const express = require('express');
 const router = express.Router();
 const Restaurant = require('../models/restaurant');
 
+// test id 584b0311734d1d55b6dc3ff9
+// router.param('id', function (req, res, next, id) {
+//   console.log("test for params is working")
+//   next();
+// });
+
 
 /* GET all of the restaurants */
 router.get('/', function(req, res, next) {
@@ -16,7 +22,12 @@ router.get('/', function(req, res, next) {
 
 /* GET individual restaurants */
 router.get('/:id', function(req, res, next) {
-  //res.render('restaurant')
+  let restId = req.params.id;
+  // MongoDB uses _id for primary key
+  Restaurant.find({ _id: "584b0311734d1d55b6dc3ff9" }, function(err, restaurant ){
+    res.send(restaurant)
+  });
+  //res.render('restaurant', {restaurant})
 });
 
 /* POST individual restaurant */
