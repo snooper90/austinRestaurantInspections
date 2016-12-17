@@ -1,3 +1,5 @@
+"use strict"
+
 const express = require('express');
 const router = express.Router();
 const Restaurant = require('../models/restaurant');
@@ -18,8 +20,21 @@ router.get('/:id', function(req, res, next) {
 });
 
 /* POST individual restaurant */
-router.post('/:id', function(req, res, next) {
-  
+router.post('/', function(req, res, next) {
+
+  const name = req.body.name;
+  const raitings = req.body.raitings;
+  const location = req.body.location;
+  let restaurant = new Restaurant(
+    {
+      name:name,
+      raitings:raitings,
+      location:location
+    }
+  );
+  res.send(restaurant);
+  //resturant.save()
+
 });
 
 module.exports = router;
