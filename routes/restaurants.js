@@ -1,19 +1,27 @@
 "use strict"
-
+/*  Requirements  */
 const express = require('express');
 const router = express.Router();
 const Restaurant = require('../models/restaurant');
 
+/*  Middleware  */
 // test id 584b0311734d1d55b6dc3ff9
 // router.param('id', function (req, res, next, id) {
-//   console.log("test for params is working")
+//   console.log("test for params is working: " + id)
 //   next();
 // });
 
+/*  Routes */
 
 /* GET all of the restaurants */
 router.get('/', function(req, res, next) {
-  Restaurant.find({},
+  let query = req.query;
+  var searchParams = {};
+  // Check if there is a query string
+  if(Object.keys(query).length){
+    searchParams = query;
+  }
+  Restaurant.find( searchParams,
     function(err, restaurants){
       res.send(restaurants);
     }
@@ -23,8 +31,9 @@ router.get('/', function(req, res, next) {
 /* GET individual restaurants */
 router.get('/:id', function(req, res, next) {
   let restId = req.params.id;
+
   // MongoDB uses _id for primary key
-  Restaurant.find({ _id: "584b0311734d1d55b6dc3ff9" }, function(err, restaurant ){
+  Restaurant.find({ _id: restId }, function(err, restaurant ){
     res.send(restaurant)
   });
   //res.render('restaurant', {restaurant})
