@@ -21,6 +21,7 @@ router.get('/', function(req, res, next) {
   if(Object.keys(query).length){
     searchParams = query;
   }
+  // Query database to find all restaurants that meet the searchParams
   Restaurant.find( searchParams,
     function(err, restaurants){
       res.send(restaurants);
@@ -41,10 +42,11 @@ router.get('/:id', function(req, res, next) {
 
 /* POST individual restaurant */
 router.post('/', function(req, res, next) {
-
-  const name = req.body.name;
-  const raitings = req.body.raitings;
-  const location = req.body.location;
+  //gather information for new restaurant
+  let name = req.body.name;
+  let raitings = req.body.raitings;
+  let location = req.body.location;
+  //Create a new restaurant object
   let restaurant = new Restaurant(
     {
       name:name,
@@ -52,9 +54,55 @@ router.post('/', function(req, res, next) {
       location:location
     }
   );
-  res.send(restaurant);
-  //resturant.save()
+  //save the restaurant
+  resturant.save(function(err){
+    if ( err ){
+      console.log('====================================');
+      console.log('Saving restaurant during update error: ' + error);
+      console.log('====================================');
+    }else{
+      res.send(restaurant);
+    }
+  })
+
+
 
 });
+
+
+/* Update individual restaurant (only updateing the reviews) */
+
+router.put('/:id', function(req, res, next){
+  restaurantId = req.params._id;
+  //gather data to be changed
+  let raitings =  req.body.raitings;
+  //find restaurant to be updated
+  Restaurant.findById(restaurantId, function(err, restaurant){
+    if ( err ) {
+      console.log('====================================');
+      console.log('Finding restaurant during update err: ' + err);
+      console.log('====================================');
+    }else{
+      //
+      restaurant.raitings = raitings;
+      restaurant.save(function(error, updatedRestaurant){
+        if ( error ){
+          console.log('====================================');
+          console.log('Saving restaurant during update error: ' + error);
+          console.log('====================================');
+        }else{
+          console.log('success updating restaurant with _id : ' + updatedRestaurant._id);
+          res.redirect('/restaurants/' + updatedRestaurant._id;)
+        }
+      });
+    }
+  })
+});
+
+/* Delete individual restaurant (Not currently needed) */
+
+// router.delete('/:id', function(req, res, next){
+//
+// });
 
 module.exports = router;
