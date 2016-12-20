@@ -54,19 +54,19 @@ router.post('/', function(req, res, next) {
       location:location
     }
   );
+  // Check if record already exists
+  
   //save the restaurant
-  resturant.save(function(err){
+  restaurant.save(function(err, savedResturant){
     if ( err ){
       console.log('====================================');
       console.log('Saving restaurant during update error: ' + error);
       console.log('====================================');
     }else{
-      res.send(restaurant);
+      //
+      res.redirect('/restaurants/' + savedResturant._id)
     }
   })
-
-
-
 });
 
 
@@ -92,7 +92,7 @@ router.put('/:id', function(req, res, next){
           console.log('====================================');
         }else{
           console.log('success updating restaurant with _id : ' + updatedRestaurant._id);
-          res.redirect('/restaurants/' + updatedRestaurant._id;)
+          res.redirect('/restaurants/' + updatedRestaurant._id)
         }
       });
     }
