@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 //config mongoose
 var mongoose = require('mongoose');
 mongoose.connect(process.env.DB_CONN_FOOD_SAFTY);
+mongoose.Promise = global.Promise;
+
 
 var routes = require('./routes/index');
 var restaurants = require('./routes/restaurants');

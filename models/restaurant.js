@@ -1,13 +1,17 @@
 const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
-
+//[facility ID, name, address, [[review score, process description, date]
 const RestaurantSchema = new Schema({
+  _id: Number,
   name: String,
   location: String,
-  raitings: Array
+  zipCode: Number,
+  coordinates:String,
+  inspections: Array
 },
 {
+   _id: false,
   timestamps: true
 });
 
