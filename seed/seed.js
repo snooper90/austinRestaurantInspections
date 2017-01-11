@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 mongoose.connect(process.env.DB_CONN_FOOD_SAFTY);
 
-fs.readFile('Restaurant_Inspection_Scores.csv', 'utf8', function (err,data) {
+fs.readFile('./seed/Restaurant_Inspection_Scores.csv', 'utf8', function (err,data) {
   // Prepair the data by putting it into a sorted array
   let prepairedData = prepairData(data)
 
